@@ -39,6 +39,7 @@ function* sendRequestForAuth(action) {
         ]);
 
     } catch(err) {
+        console.log(err.message);
         yield put({
             type: aTypes.SEND_REQUEST_FOR_AUTH_REJECT,
             payload: err.message,

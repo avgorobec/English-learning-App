@@ -9,6 +9,7 @@ import { sendRequestForAuth } from '~/modules/Auth/actions';
 import AuthEmail from '~/modules/Auth/components/AuthEmail.jsx'
 import AuthPassword from '~/modules/Auth/components/AuthPassword.jsx';
 import SpinnerPage from "~/libs/components/Loader/Loader";
+import Notification from "~/modules/Header/components/Notification/Notification.jsx";
 
 class Auth extends Component {
     constructor(props) {
@@ -32,15 +33,15 @@ class Auth extends Component {
                     <MDBModalBody className="forms-modal__body">
                     <div className="forms__close" onClick={() => this.props.dispatch(authFormToClose())}>&times;</div>
                         <form onSubmit={this.handleSubmit} className="text-center forms">
+                            {this.props.errorAuth ? <Notification errMessage={this.props.errorAuth}/> : null}
                             <p className="forms__heading">Войти в учетную запись</p>
                             <div className="d-flex justify-content-center">
                                 <div className="forms-fields text-left">
-                                    {this.props.isLoading ? <SpinnerPage/> : null}
                                     <AuthEmail value={this.props.email}/>
                                     <AuthPassword value={this.props.password}/>
                                     <MDBBtn
                                         className="forms__btn btn btn-block border-white rounded-pill"
-                                        type="submit"> ВОЙТИ
+                                        type="submit">{this.props.isLoading ? <SpinnerPage /> : 'ВОЙТИ'}
                                     </MDBBtn>
                                 </div>
                             </div>
